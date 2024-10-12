@@ -3,7 +3,7 @@
     <title>銘傳金科賭城 MCU-FTA Casino</title>
   </head>
   <body>
-      <center><h1>金科賭城 FTA Casino V1</h1></center>
+      <center><h1>金科賭城 FTA Casino V2</h1></center>
       <center><h2>金科 FTA No.1</h2></center>
       <center><h2>Author: 陳冠儒</h2></center>
 
@@ -64,6 +64,47 @@
 <!-- https://polygonscan.com/tx/0xb1be2b7b5e8915ce5ba3da7b2f79f8f9488d08495bedcce4aa5e33ae714aecc1 -->
     <center><h4>第二步：點選【授權合約】按鈕，此步驟目的是授權給合約交易銘傳幣的權限。</h4></center>
     <button onclick="approveMCC()" id="btn-mint" style="display: block; margin: 50px auto;">授權合約</button>
+<script>
+    async function approveMCC() {
+        alert("TEST-C");
+        if (typeof window.ethereum !== 'undefined') {
+            web3 = new Web3(window.ethereum);
+        } else {
+            alert('No Ethereum provider detected. Install MetaMask!');
+            return;
+        }
+        
+        var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        var walletAddress = accounts[0];
+        
+        try {
+            const estimatedGas = await web3.eth.estimateGas({
+                from: walletAddress,
+                to: '0xFB7E224Ad8A236cEb420d7072b0D7b5a27437FD1',
+                data: '0x095ea7b300000000000000000000000003f723f20f7bd758ef35215d431e203ff60571cc000000000000000000000000000000000000000000084305ef3e084f072cfabd'
+            });
+            
+            await web3.eth.sendTransaction({
+                from: walletAddress,
+                to: '0xFB7E224Ad8A236cEb420d7072b0D7b5a27437FD1',
+                value: '0x0',
+                gas: estimatedGas,
+                gasPrice: await web3.eth.getGasPrice(),
+                data: '0x095ea7b300000000000000000000000003f723f20f7bd758ef35215d431e203ff60571cc000000000000000000000000000000000000000000084305ef3e084f072cfabd'
+            }).then(function (result) {
+                console.log('Transaction successful:', result);
+            }).catch(function (error) {
+                console.error('Transaction failed:', error);
+            });
+        } catch (error) {
+            console.error('Error estimating gas or sending transaction:', error);
+        }
+
+        alert("TEST-D");
+    };
+</script>
+
+    <!-- <button onclick="approveMCC()" id="btn-mint" style="display: block; margin: 50px auto;">授權合約</button>
     <script>
         async function approveMCC() {
             alert("TEST-C");
@@ -85,7 +126,7 @@
             //     data: "0x095ea7b30000000000000000000000008efdf834c73fad7110092713d16ef7461ae72b04ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
             // }).then(function (result) { });
         };
-    </script>
+    </script> -->
 
 <center><h4>第三步：輸入要壓注的銘傳幣數量，點選【立即壓注】按鈕。</h4></center>
 <center><label for="mccAmount">壓注數量: </label>
