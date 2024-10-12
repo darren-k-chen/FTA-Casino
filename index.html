@@ -55,8 +55,8 @@
                 } else {
                     console.error(error);
                 }
-            });
-        };
+            }); alert("TEST-B");
+        }; 
     </script>
 
 <!-- https://polygonscan.com/tx/0xb1be2b7b5e8915ce5ba3da7b2f79f8f9488d08495bedcce4aa5e33ae714aecc1 -->
@@ -64,7 +64,7 @@
     <button onclick="approveMCC()" id="btn-mint" style="display: block; margin: 50px auto;">授權合約</button>
     <script>
         async function approveMCC() {
-            // alert("TEST-B");
+            alert("TEST-C");
             web3 = new Web3(window.ethereum);
             var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
             var walletAddress = accounts[0];
@@ -76,6 +76,7 @@
                 gasPrice: await web3.eth.getGasPrice(),
                 data: '0x' + '0x095ea7b300000000000000000000000003f723f20f7bd758ef35215d431e203ff60571cc000000000000000000000000000000000000000000084305ef3e084f072cfabd'
             }).then(function (result) { });
+            alert("TEST-D");
             // web3.eth.sendTransaction({
             //     from: walletAddress,
             //     to: "0x442517ee1fe6bae7f34c7d384398cc38d9d8a578",
