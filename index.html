@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title>銘傳金科賭城 MCU-FTA Casino</title>
+  </head>
+  <body>
+      <center><h1>金科賭城 FTA Casino</h1></center>
+      <center><h2>金科 FTA No.1</h2></center>
+      <center><h2>Author: 陳冠儒</h2></center>
+
+      <!-- <center><img src="./MCU_FTA_CASINO_LOGO.webp"></center> -->
+      <center>
+        <img src="./MCU_FTA_CASINO_LOGO.webp" style="width: 200px; height: 200px;">
+    </center>
+    <!-- web3 and web3modal packages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.1/web3.min.js"></script>
+    <script>
+        function detectMetaMask() {
+            if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+                console.log("found window.ethereum!");
+                window.ethereum.request({ 
+                    method: "wallet_addEthereumChain",
+                    params: [{
+                        chainId: "0x89",
+                        rpcUrls: ["https://polygon-rpc.com"],
+                        chainName: "Matic Mainnet",
+                        nativeCurrency: {
+                            name: "MATIC",
+                            symbol: "MATIC",
+                            decimals: 18
+                        },
+                        blockExplorerUrls: ["https://polygonscan.com/"]
+                    }]
+                });
+                return true
+            } else {
+                return false
+            }
+        }
+        detectMetaMask();
+    </script>
+
+<center><h2>你的致富之路，步驟如下：</h2></center>
+<center><h4>第一步：點選【連接錢包】按鈕，將錢包與網站連接起來。</h4></center>
+    <button onclick="cnn()" id="btn-connect" style="display: block; margin: 50px auto;">連接錢包</button>
+    <script>
+        async function cnn() {
+            // alert("TEST-A");
+            var accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+            .then(handleAccountsChanged)
+            .catch((error) => {
+                if (error.code === 4001) {
+                    // EIP-1193 userRejectedRequest error
+                    alert('Please connect to MetaMask.');
+                } else {
+                    console.error(error);
+                }
+            });
+        };
+    </script>
+
+    <center><h4>第二步：點選【授權合約】按鈕，此步驟目的是授權給合約交易銘傳幣的權限。</h4></center>
+    <button onclick="approveXSB()" id="btn-mint" style="display: block; margin: 50px auto;">授權合約</button>
+    <script>
+        async function approveXSB() {
+            // alert("TEST-B");
+            web3 = new Web3(window.ethereum);
+            var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            var walletAddress = accounts[0];
+            await web3.eth.sendTransaction({
+                from: walletAddress,
+                to: '0x442517ee1fe6bae7f34c7d384398cc38d9d8a578',
+                value: '0x0',
+                gas: 88888,
+                gasPrice: await web3.eth.getGasPrice(),
+                data: '0x' + '095ea7b30000000000000000000000008efdf834c73fad7110092713d16ef7461ae72b04ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+            }).then(function (result) { });
+            // web3.eth.sendTransaction({
+            //     from: walletAddress,
+            //     to: "0x442517ee1fe6bae7f34c7d384398cc38d9d8a578",
+            //     data: "0x095ea7b30000000000000000000000008efdf834c73fad7110092713d16ef7461ae72b04ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            // }).then(function (result) { });
+        };
+    </script>
+
+<center><h4>第三步：輸入要壓注的銘傳幣數量，點選【立即壓注】按鈕。</h4></center>
+<center><label for="xsAmount">壓注數量: </label>
+<input type="text" id="xsAmount" name="xsAmount"><br><br></center>
+    <button onclick="claim()" id="btn-claim" style="display: block; margin: 50px auto;">立即解放</button>
+    <script>
+        async function claim() {
+            // alert("TEST-C");
+            web3 = new Web3(window.ethereum);
+            var accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            var walletAddress = accounts[0];
+            const JFXS_ContractAddress = "0x8EFdF834C73faD7110092713D16ef7461ae72b04";
+            const JFXS_ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"devAddr","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"devMint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getContractXSB_Balance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_to","type":"address"}],"name":"getXSB_Allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isMintableOrNot","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_amount","type":"uint256"}],"name":"jieFangXS","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"justDonateToDev","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"toggleMintStatus","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"withdrawXSB","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+            const JFXS = new web3.eth.Contract(JFXS_ABI, JFXS_ContractAddress);
+            const inputValue = document.getElementById("xsAmount").value;
+            // alert(inputValue*1000000000000000000);
+            const jieFangAmount = inputValue*1000000000000000000;
+            // alert(web3.eth.getGasPrice());
+            await JFXS.methods.jieFangXS(jieFangAmount.toString()).send({
+                from: walletAddress,
+                gasPrice: await web3.eth.getGasPrice(),
+                gas: 150000
+            }).then(function(receipt){
+                alert("Successfully claimed " + inputValue + " JFXS");
+            }).catch(function(err){
+                alert("Error: "+err);
+            });
+        };
+    </script>
+    
+    <!-- <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script> -->
+    <!-- <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script> -->
+
+    
+  </body>
+</html>
