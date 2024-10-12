@@ -37,6 +37,7 @@
             }
         }
         detectMetaMask();
+        alert("TEST 1");
     </script>
 
 <center><h2>你的致富之路，步驟如下：</h2></center>
@@ -44,7 +45,7 @@
     <button onclick="cnn()" id="btn-connect" style="display: block; margin: 50px auto;">連接錢包</button>
     <script>
         async function cnn() {
-            // alert("TEST-A");
+            alert("TEST-A");
             var accounts = await ethereum.request({ method: 'eth_requestAccounts' })
             .then(handleAccountsChanged)
             .catch((error) => {
